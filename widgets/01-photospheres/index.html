@@ -7,7 +7,16 @@
 </head>
 <body>
   <a-scene>
+    <a-entity camera="userHeight: 1.6" look-controls="reverseMouseDrag: true"></a-entity>
+
+    <!-- Photosphere Background -->
     <a-sky src="engine.jpg" rotation="0 60 0"></a-sky>
+
+    <!-- Overlay where I am -->
+    <a-plane position="3 2 -20" rotation="0 0 0" width="14" height="14" src="box.svg" material="transparent: true; shader: flat;"></a-plane>
+
+    <!-- Diet Coke, because of course -->
+    <a-plane position="10 -1.3 14" rotation="0 -135 -2" width="6" height="6" src="box.svg" material="transparent: true; shader: flat;"></a-plane>
   </a-scene>
 </body>
 </html>

@@ -4,10 +4,40 @@
   <meta charset="UTF-8">
   <title>Playing with Photospheres</title>
   <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+  <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+  <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+  <script>
+    AFRAME.registerComponent('go-back', {
+      schema: {
+        on: {type: 'string'},
+        target: {type: 'selector'},
+        src: {type: 'string'},
+      },
+
+      init: function () {
+        var data = this.data;
+        var el = this.el;
+
+        el.addEventListener(data.on, function () {
+          window.location = '//' + location.hostname;
+        });
+      },
+    });
+  </script>
 </head>
 <body>
   <a-scene>
-    <a-entity camera="userHeight: 1.6" look-controls="reverseMouseDrag: true"></a-entity>
+    <a-entity camera="userHeight: 1.6" look-controls="reverseMouseDrag: true">
+      <a-cursor id="cursor"
+        animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+        animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+        event-set__1="_event: mouseenter; color: #dd3333; opacity: 1"
+        event-set__2="_event: mouseleave; color: black; opacity: 0.25"
+        fuse="true"
+        material="opacity: 0.25"
+        raycaster="objects: .link">
+      </a-cursor>
+    </a-entity>
 
     <!-- Photosphere Background -->
     <a-sky src="engine.jpg" rotation="0 60 0"></a-sky>
@@ -28,6 +58,29 @@
     <a-entity text="color:#ffffff;font:https://cdn.aframe.io/fonts/Exo2Bold.fnt;value:ENGINE COMPARTMENT ENTERTAINMENT SYSTEM;wrapCount:45" position="-22.1 -8.1 5.26" rotation="0 121 0" scale="30 30 1" id="entertainment"></a-entity>
 
     <a-entity text="color:#ffffff;font:https://cdn.aframe.io/fonts/Exo2Bold.fnt;value:UH OH.;wrapCount:45" position="9.2 32.3 36.1" rotation="90 -95 0" scale="30 30 1" id="uh-oh"></a-entity>
+
+    <!-- A way out -->
+    <a-plane class="link"
+      position="0 -25 0"
+      rotation="-90 0 0"
+      width="14"
+      height="14"
+      src="box.svg"
+      material="transparent: true; shader: flat;"
+      animation__mouseenter="property: scale; startEvents: mouseenter; from: 1 1 1; to: 1.1 1.1 1; dur: 150"
+      animation__mouseleave="property: scale; startEvents: mouseleave; from: 1.1 1.1 1; to: 1 1 1; dur: 50"
+      event-set__1="_event: mousedown;  material.color: #dd3333;"
+      event-set__2="_event: mouseup;  material.color: #ffffff"
+      go-back="on: click"
+      >
+    </a-plane>
+    <a-entity
+      text="color:#ffffff;font:https://cdn.aframe.io/fonts/Exo2Bold.fnt;value:< GO BACK >"
+      position="0 -24 -11.4"
+      rotation="-90 90 0"
+      scale="30 30 1"
+      id="back">
+    </a-entity>
   </a-scene>
 </body>
 </html>

@@ -1,0 +1,3 @@
+[submodule "widgets/03-photosphere-comparison/photo-sphere-viewer"]
+	path = widgets/03-photosphere-comparison/photo-sphere-viewer
+	url = git@github.com:JeremyHeleine/Photo-Sphere-Viewer.git
